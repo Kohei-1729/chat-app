@@ -19,7 +19,7 @@ RSpec.describe "メッセージ投稿機能", type: :system do
         find('input[name="commit"]').click
       }.not_to change { Message.count }
       # 元のページに戻ってくることを確認する
-      expect(current_path).to eq room_messages/path(@room_user.room)
+      expect(current_path).to eq room_messages_path(@room_user.room)
     end
   end
 
@@ -75,7 +75,7 @@ RSpec.describe "メッセージ投稿機能", type: :system do
       image_path = Rails.root.join('public/images/test_image.png')
 
       # 画像選択フォームに画像を添付する
-      attach_file('message[image]', with: post)
+      attach_file('message[image]', image_path, make_visible: true)
       # 値をテキストフォームに入力する
       post = "テスト"
       fill_in 'message_content', with: post
